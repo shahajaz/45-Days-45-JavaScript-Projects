@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #002445;
+}
+.container{
+    background: #fff;
+    padding: 16px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+.container h1{
+    color: #fff;
+    background-color: #015b60;
+    padding: 8px;
+    border-radius: 5px;
+}
