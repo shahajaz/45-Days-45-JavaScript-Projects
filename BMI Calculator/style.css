@@ -2,25 +2,64 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: Arial, sans-serif;
 }
 body{
+    background: linear-gradient(to right, #264652, #e6c09f);
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: #002445;
 }
 .container{
-    background: #fff;
-    padding: 16px;
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 320px;
+    padding: 25px;
+    border-radius: 8px;
     text-align: center;
+    background: #fff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
-.container h1{
-    color: #fff;
-    background-color: #015b60;
+h1{
+    margin-bottom: 20px;
+    color: #333;
+}
+.input-group{
+    margin-bottom: 15px;
+    text-align: left;
+}
+label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+input{
+    width: 100%;
     padding: 8px;
     border-radius: 5px;
+    border: 1px solid #ccc;
+}
+button{
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    background: #00516a;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+button:hover{
+    background: #0096c4;
+}
+.result{
+    margin-top: 20px;
+}
+#bmiValue{
+    font-size: 20px;
+    font-weight: bold;
+}
+#bmiStatus{
+    font-size: 18px;
+    margin-top: 5px;
 }
