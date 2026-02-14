@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.typing-container h1{
+    font-size: 40px;
+}
+.typing{
+    background: linear-gradient(
+    270deg, #ffcc00 10%, #ff00af 100%);
+    background-clip: text;
+    color: transparent;
+}
+
+.cursor{
+    color: #ff00af;
+    animation: blink 0.12s infinite;
+}
+
+@keyframes blink{
+    0% { opacity: 1; }
+    50% { opacity: 1; }
+    100% { opacity: 1; }
+}
