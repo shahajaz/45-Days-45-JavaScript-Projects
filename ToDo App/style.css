@@ -35,3 +35,16 @@ body{
     background-color: #ff2f00;
     margin-bottom: 10px;
 }
+.title{
+    width: 130px;
+    display: flex;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    color: #ffffff;
+    background-color: #ff2f00;
+}
+.title i{
+    color: #6aff00;
+}
