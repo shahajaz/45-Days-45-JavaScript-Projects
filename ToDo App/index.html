@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo App - JavaScript | TechGuy 360</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-    <title>To DO App - JavScript | TechGuy 360</title>
 </head>
 <body>
     <div class="container">
-        <h1>Focus on What <span>Really matters</span></h1>
-        <div class="border-bottom"></div>
-
-        <div class="title">
-            <h2>Focus <i class="fa-solid fa-bullseye"></i></h2>
+        <h2>Your Goals 🎯</h2>
+        
+        <div class="add-goal">
+            <input id="goalInput" placeholder="Add New Goal...">
+            <button id="addGoalBtn">Add Goal</button>
         </div>
-
-        <div class="input-container">
-            <input type="text" id="task-input" placeholder="Add a new task...">
-            <button id="add-task-btn"><i class="fa-solid fa-plus"></i></button>
+        <div class="progress-bar">
+            <div id="progressValue">0%</div>
         </div>
+        <div id="goalList"></div>
+        <p class="quote">“Move one step ahead, today!”</p>
     </div>
     <script src="script.js"></script>
+
 </body>
 </html>
