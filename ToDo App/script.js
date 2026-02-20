@@ -1,189 +1,207 @@
-
-// ======================
+// =======================
 // DOM
-// ======================
+// =======================
 
-const goalInput =
-document.getElementById("goalInput")
-
-const addGoalBtn =
-document.getElementById("addGoalBtn")
-
-const goalList =
-document.getElementById("goalList")
-
-const progressValue =
-document.getElementById("progressValue")
+const goalInput = document.getElementById("goalInput");
+const addGoalBtn = document.getElementById("addGoalBtn");
+const goalList = document.getElementById("goalList");
+const progressValue = document.getElementById("progressValue");
 
 
-
-// ======================
+// =======================
 // STORAGE
-// ======================
+// =======================
 
-const STORAGE_KEY = "goals"
-
-
+const STORAGE_KEY = "goals";
 
 function loadGoals(){
 
 return JSON.parse(
-
 localStorage.getItem(STORAGE_KEY)
-
-) || []
+) || [];
 
 }
-
-
 
 function saveGoals(){
 
 localStorage.setItem(
-
 STORAGE_KEY,
-
 JSON.stringify(goals)
-
-)
+);
 
 }
 
 
-
-// ======================
+// =======================
 // STATE
-// ======================
+// =======================
 
-let goals = loadGoals()
+let goals = loadGoals();
 
 
-
-// ======================
-// UNIQUE ID
-// ======================
+// =======================
+// ID
+// =======================
 
 function createID(){
 
-return Date.now().toString()
+return Date.now().toString();
 
 }
 
 
-
-// ======================
-// PROGRESS BAR
-// ======================
+// =======================
+// PROGRESS
+// =======================
 
 function updateProgress(){
 
-if(!goals.length){
+if(goals.length===0){
 
-progressValue.style.width="0%"
+progressValue.style.width="0%";
+progressValue.textContent="0%";
 
-progressValue.textContent="0%"
-
-return
+return;
 
 }
 
-const completed =
-
-goals.filter(
-
-goal=>goal.completed
-
-).length
-
+const completed = goals.filter(
+g=>g.completed
+).length;
 
 const percent = Math.floor(
-
 (completed/goals.length)*100
+);
 
-)
-
-progressValue.style.width=
-
-percent+"%"
-
-progressValue.textContent=
-
-percent+"%"
+progressValue.style.width=percent+"%";
+progressValue.textContent=percent+"%";
 
 }
 
 
-
-// ======================
+// =======================
 // RENDER
-// ======================
+// =======================
 
 function renderGoals(){
 
-goalList.innerHTML=""
-
+goalList.innerHTML="";
 
 goals.forEach(goal=>{
 
-const div=document.createElement("div")
+const div=document.createElement("div");
 
-div.className=
+div.className=`goal ${goal.completed?"completed":""}`;
 
-`goal ${goal.completed?"completed":""}`
-
-
-div.dataset.id=goal.id
+div.dataset.id=goal.id;
 
 
-div.innerHTML=
+// CREATE CHECKBOX
 
-`
+const checkbox=document.createElement("input");
 
-<input type="checkbox"
+checkbox.type="checkbox";
 
-${goal.completed?"checked":""}
-
-/>
-
-<span contenteditable="true"
-
-spellcheck="false"
-
->
-
-${goal.text}
-
-</span>
+checkbox.checked=goal.completed;
 
 
-<button class="delete">
+// CREATE TEXT
 
-Delete
+const span=document.createElement("span");
 
-</button>
+span.contentEditable=true;
 
-`
+span.spellcheck=false;
 
-goalList.appendChild(div)
+span.textContent=goal.text;
 
-})
 
-updateProgress()
+// CREATE DELETE BUTTON
+
+const delBtn=document.createElement("button");
+
+delBtn.className="delete";
+
+delBtn.textContent="Delete";
+
+
+// EVENTS DIRECTLY ATTACH
+
+checkbox.addEventListener("change",()=>{
+
+goal.completed=checkbox.checked;
+
+saveGoals();
+
+renderGoals();
+
+});
+
+delBtn.addEventListener("click",()=>{
+
+goals=goals.filter(
+g=>g.id!==goal.id
+);
+
+saveGoals();
+
+renderGoals();
+
+});
+
+span.addEventListener("blur",()=>{
+
+const updatedText=span.textContent.trim();
+
+if(!updatedText){
+
+alert("Goal cannot be empty");
+
+renderGoals();
+
+return;
+
+}
+
+goal.text=updatedText;
+
+saveGoals();
+
+});
+
+
+// APPEND
+
+div.appendChild(checkbox);
+
+div.appendChild(span);
+
+div.appendChild(delBtn);
+
+goalList.appendChild(div);
+
+});
+
+updateProgress();
 
 }
 
 
-
-// ======================
+// =======================
 // ADD GOAL
-// ======================
+// =======================
 
 function addGoal(){
 
-const text = goalInput.value.trim()
+const text=goalInput.value.trim();
 
-if(!text) return
+if(!text){
 
+alert("Enter Goal First");
+
+return;
+
+}
 
 goals.push({
 
@@ -193,154 +211,20 @@ text,
 
 completed:false
 
-})
+});
 
+goalInput.value="";
 
-goalInput.value=""
+saveGoals();
 
-saveGoals()
-
-renderGoals()
-
-}
-
-
-
-// ======================
-// CLICK EVENTS
-// ======================
-
-goalList.addEventListener(
-
-"click",
-
-(e)=>{
-
-const goalDiv =
-
-e.target.closest(".goal")
-
-if(!goalDiv) return
-
-
-const id = goalDiv.dataset.id
-
-
-const goal =
-
-goals.find(
-
-g=>g.id === id
-
-)
-
-
-// COMPLETE
-
-if(e.target.matches(
-
-'input[type="checkbox"]'
-
-)){
-
-goal.completed =
-
-e.target.checked
-
-saveGoals()
-
-renderGoals()
+renderGoals();
 
 }
 
 
-// DELETE
-
-if(e.target.classList.contains(
-
-"delete"
-
-)){
-
-goals = goals.filter(
-
-g=>g.id !== id
-
-)
-
-saveGoals()
-
-renderGoals()
-
-}
-
-}
-
-)
-
-
-
-// ======================
-// AUTO SAVE EDIT
-// ======================
-
-goalList.addEventListener(
-
-"blur",
-
-(e)=>{
-
-if(!e.target.matches("span"))
-
-return
-
-
-const goalDiv =
-
-e.target.closest(".goal")
-
-const id = goalDiv.dataset.id
-
-
-const goal =
-
-goals.find(
-
-g=>g.id === id
-
-)
-
-
-const updatedText =
-
-e.target.textContent.trim()
-
-
-if(!updatedText){
-
-alert("Goal cannot be empty")
-
-renderGoals()
-
-return
-
-}
-
-goal.text = updatedText
-
-saveGoals()
-
-},
-
-true // important (capture phase)
-
-)
-
-
-
-// ======================
-// ADD BUTTON
-// ======================
+// =======================
+// BUTTON
+// =======================
 
 addGoalBtn.addEventListener(
 
@@ -348,11 +232,10 @@ addGoalBtn.addEventListener(
 
 addGoal
 
-)
+);
 
 
-
-// ENTER KEY ADD
+// ENTER ADD
 
 goalInput.addEventListener(
 
@@ -360,18 +243,17 @@ goalInput.addEventListener(
 
 (e)=>{
 
-if(e.key === "Enter"){
+if(e.key==="Enter"){
 
-addGoal()
+addGoal();
 
 }
 
-})
+});
 
 
-
-// ======================
+// =======================
 // INIT
-// ======================
+// =======================
 
-renderGoals()
+renderGoals();
