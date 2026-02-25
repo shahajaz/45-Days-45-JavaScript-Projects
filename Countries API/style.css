@@ -7,13 +7,17 @@
 body{
     background-color: #f0f0f0ec;
 }
+a{
+    color: inherit;
+    text-decoration-line: none;
+}
 nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 50px;
     background-color: #fff;
-    box-shadow: 0 0 10px #0000001a;
+    box-shadow: 0 2px 4px 0px rgba(0, 0, 0, 0.1);
 }
 .header{
     font-weight: 800;
@@ -21,16 +25,63 @@ nav{
 }
 .header span{
     padding: 5px 8px;
-    border-radius: 5px;
+    border-radius: 3px;
     color: #ffffff;
     background-color: #007bff;
 }
-
 .toggleBtn{
+    font-size: 12px;
     padding: 6px 8px;
     color: #ffffff;
     background-color: #000000;
     border-radius: 50px;
     border: 2px solid #727272;
     cursor: pointer;
+}
+main{
+    padding: 12px;
+}
+.countries-container{
+    max-width: 1600px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-inline: auto;
+    gap: 16px;
+    justify-content: center;
+}
+.countries-box{
+    width: 300px;
+    display: inline-block;
+    background-color: #fff;
+    box-shadow: 0 2px 4px 0px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 5px;
+    padding-bottom: 6px;
+    text-align: left;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+.countries-box:hover{
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px 0px rgba(0, 0, 0, 0.3);
+}
+.countries-box img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 5px;
+}
+.countries-box .card-text{
+    padding-inline: 8px;
+}
+.card-text h3{
+    font-size: 18px;
+    color: #333;
+    margin-block: 8px;
+}
+.card-text p{
+    font-size: 14px;
+    color: #667;
+    margin-block: 5px;
 }
