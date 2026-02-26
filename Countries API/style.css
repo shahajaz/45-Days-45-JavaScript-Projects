@@ -49,7 +49,7 @@ main{
     gap: 16px;
     justify-content: center;
 }
-.countries-box{
+.countryCard{
     width: 300px;
     display: inline-block;
     background-color: #fff;
@@ -61,18 +61,18 @@ main{
     overflow: hidden;
     transition: all 0.3s ease-in-out;
 }
-.countries-box:hover{
+.countryCard:hover{
     transform: scale(1.03);
     box-shadow: 0 4px 8px 0px rgba(0, 0, 0, 0.3);
 }
-.countries-box img{
+.countryCard img{
     width: 100%;
     height: 200px;
     object-fit: cover;
     overflow: hidden;
     border-radius: 5px;
 }
-.countries-box .card-text{
+.countryCard .card-text{
     padding-inline: 8px;
 }
 .card-text h3{
