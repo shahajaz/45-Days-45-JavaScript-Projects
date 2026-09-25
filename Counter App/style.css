@@ -16,7 +16,8 @@ body{
     padding: 30px;
     text-align: center;
     border-radius: 8px;
-    background: #070a41d3;
+    background: #000338d3;
+    border: 2px solid #088791d3;
 }
 .counter-container h1{
     margin-bottom: 22px;
