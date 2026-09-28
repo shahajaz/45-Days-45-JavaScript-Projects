@@ -3,3 +3,16 @@
     padding: 0;
     box-sizing: border-box;
 }
+body{
+    background: #1e1e1e;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+}
+.container{
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #100049;
+}
