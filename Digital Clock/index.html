@@ -7,12 +7,35 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="heading">
-            <h1>Digital Clock</h1>
-            
+    <main class="container">
+    <header class="heading">
+        <h1>Digital Clock</h1>
+    </header>
+
+    <section class="clock-controls" aria-label="Clock format">
+        <button type="button" class="toggle-btn active" id="12hr" aria-pressed="true">
+            12hr
+        </button>
+
+        <button type="button" class="toggle-btn" id="24hr" aria-pressed="false">
+            24hr
+        </button>
+    </section>
+
+    <section class="display" aria-label="Current date and time">
+        <div class="time-wrapper">
+            <time class="time" id="time">00:00:00</time>
+            <span class="ampm" id="ampm">AM</span>
         </div>
-    </div>
+
+        <div class="date-wrapper">
+            <time id="date" datetime="2023-01-01">
+                January 1, 2023
+            </time>
+            <span id="day">Monday</span>
+        </div>
+    </section>
+</main>
     
     <script src="script.js"></script>
 </body>

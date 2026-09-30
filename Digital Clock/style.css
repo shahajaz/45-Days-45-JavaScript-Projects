@@ -1,18 +1,280 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-body{
-    background: #1e1e1e;
-    color: #fff;
-    font-family: 'Poppins', sans-serif;
+:root {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-display: #0b1324;
+
+    --border: #334155;
+    --border-light: #475569;
+
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+
+    --accent: #3b82f6;
+    --accent-light: #60a5fa;
+
+    --radius-lg: 24px;
+    --radius-md: 18px;
+    --radius-pill: 999px;
 }
-.container{
-    height: auto;
-    width: 100%;
+body {
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-    background: #100049;
+    justify-content: center;
+    padding: 24px;
+    font-family: "Poppins", "Inter", "Segoe UI", sans-serif;
+    background: radial-gradient( circle at top,#172554 0%,#0f172a 45%,#080d19 100%);
+    color: var(--text-primary);
+}
+.container {
+    width: min(100%, 600px);
+    padding: 42px;
+    text-align: center;
+    background: rgba(30, 41, 59, 0.95);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+}
+.heading h1 {
+    margin-bottom: 30px;
+    font-size: clamp(2.2rem, 6vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    color: var(--text-primary);
+}
+.clock-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 5px;
+    margin-bottom: 35px;
+    background: #111a2b;
+    border: 1px solid #1e293b;
+    border-radius: var(--radius-pill);
+    box-shadow:
+        inset 0 2px 8px rgba(0, 0, 0, 0.35),
+        0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.toggle-btn {
+    min-width: 82px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.15s ease;
+}
+.toggle-btn:not(.active):hover {
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.04);
+}
+.toggle-btn.active {
+    background: #1e293b;
+    color: var(--accent-light);
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.35),
+        inset 0 1px 2px rgba(255, 255, 255, 0.04);
+}
+.toggle-btn:active {
+    transform: scale(0.95);
+}
+.toggle-btn:focus-visible {
+    outline: 2px solid var(--accent-light);
+    outline-offset: 3px;
+}
+.display {
+    width: 100%;
+    padding: 35px 20px;
+    background: var(--bg-display);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow:
+        inset 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+.time-wrapper {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 10px;
+}
+.time {
+    font-size: clamp(3rem, 10vw, 5rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 2px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    color: var(--text-primary);
+}
+.ampm {
+    min-width: 35px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent-light);
+    line-height: 1;
+}
+
+.date-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    margin-top: 28px;
+    color: var(--text-secondary);
+}
+
+#date {
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.4;
+}
+#day {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 20px;
+    }
+
+    .container {
+        padding: 35px 25px;
+    }
+
+    .display {
+        padding: 30px 15px;
+    }
+}
+
+
+/* ========================================
+   RESPONSIVE — MOBILE
+======================================== */
+@media (max-width: 480px) {
+
+    body {
+        padding: 15px;
+    }
+
+
+    .container {
+        width: 100%;
+
+        padding: 30px 16px;
+
+        border-radius: 20px;
+    }
+
+
+    .heading h1 {
+        margin-bottom: 25px;
+
+        font-size: 2.2rem;
+    }
+
+
+    .clock-controls {
+        margin-bottom: 28px;
+    }
+
+
+    .toggle-btn {
+        min-width: 75px;
+
+        padding: 9px 15px;
+
+        font-size: 0.9rem;
+    }
+
+
+    .display {
+        padding: 28px 8px;
+
+        border-radius: 16px;
+    }
+
+
+    .time-wrapper {
+        gap: 6px;
+    }
+
+
+    .time {
+        font-size: clamp(2.5rem, 13vw, 4rem);
+
+        letter-spacing: 1px;
+    }
+
+
+    .ampm {
+        min-width: 28px;
+
+        font-size: 0.8rem;
+    }
+
+
+    .date-wrapper {
+        margin-top: 24px;
+    }
+
+
+    #date {
+        font-size: 0.95rem;
+    }
+
+
+    #day {
+        font-size: 0.82rem;
+    }
+}
+
+
+/* ========================================
+   VERY SMALL SCREENS
+======================================== */
+
+@media (max-width: 350px) {
+
+    .container {
+        padding: 25px 12px;
+    }
+
+
+    .heading h1 {
+        font-size: 1.9rem;
+    }
+
+
+    .time {
+        font-size: 2.3rem;
+    }
+
+
+    .toggle-btn {
+        min-width: 68px;
+
+        padding: 8px 12px;
+    }
 }
