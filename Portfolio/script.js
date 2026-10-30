@@ -1,31 +1,93 @@
-//Hamburger Menu Design Started
+
+// ==========================================
+// 1. HAMBURGER MENU
+// ==========================================
+
 const navLinks = document.getElementById("navLinks");
 const openMenu = document.getElementById("openMenu");
 const closeMenu = document.getElementById("closeMenu");
 
-openMenu.addEventListener("click", () => {
-    navLinks.classList.add("active");
-    openMenu.style.display = "none";
-    closeMenu.style.display = "block";
-});
+if (navLinks && openMenu && closeMenu) {
 
-closeMenu.addEventListener("click", () => {
-    navLinks.classList.remove("active");
-    closeMenu.style.display = "none";
-    openMenu.style.display = "block";
-});
-//Hamburger Menu Design Ended
+    // Reusable Toggle Function
+    const toggleMenu = (isOpen) => {
 
-const wrapper = document.querySelector('.wrapper');
-const indicators = [...document.querySelectorAll('.indicators button')];
+        navLinks.classList.toggle("active", isOpen);
 
-let currentTestimonial = 0; // Default 0
+        openMenu.classList.toggle("hidden", isOpen);
+        closeMenu.classList.toggle("hidden", !isOpen);
 
-indicators.forEach((item, i) => {
-    item.addEventListener('click', () => {
-        indicators[currentTestimonial].classList.remove('active');
-        wrapper.style.marginLeft = `-${100 * i}%`;
-        item.classList.add('active');
-        currentTestimonial = i;
-    })
-})
+        openMenu.setAttribute("aria-expanded", String(isOpen));
+    };
+
+    // Open Menu
+    openMenu.addEventListener("click", () => {
+        toggleMenu(true);
+    });
+
+    // Close Menu
+    closeMenu.addEventListener("click", () => {
+        toggleMenu(false);
+    });
+
+    // Close Menu After Clicking Navigation Link
+    navLinks.querySelectorAll("a").forEach((link) => {
+
+        link.addEventListener("click", () => {
+            toggleMenu(false);
+        });
+
+    });
+
+    // Close Menu On Escape Key
+    document.addEventListener("keydown", (event) => {
+
+        if (event.key === "Escape" && navLinks.classList.contains("active")) {
+            toggleMenu(false);
+            openMenu.focus();
+        }
+
+    });
+}
+
+
+// ==========================================
+// 2. TESTIMONIAL SLIDER
+// ==========================================
+
+const wrapper = document.querySelector(".wrapper");
+const indicators = document.querySelectorAll(".indicators button");
+
+let currentTestimonial = 0;
+
+if (wrapper && indicators.length > 0) {
+
+    // Reusable Slider Function
+    const showTestimonial = (index) => {
+
+        // Validate Index
+        if (index < 0 || index >= indicators.length) return;
+
+        // Remove Previous Active Class
+        indicators[currentTestimonial].classList.remove("active");
+
+        // Update Slider Position
+        wrapper.style.transform = `translateX(-${index * 100}%)`;
+
+        // Update Active Indicator
+        indicators[index].classList.add("active");
+
+        // Update Current Testimonial
+        currentTestimonial = index;
+    };
+
+    // Indicator Click Events
+    indicators.forEach((indicator, index) => {
+
+        indicator.addEventListener("click", () => {
+            showTestimonial(index);
+        });
+
+    });
+
+}
