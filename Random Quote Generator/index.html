@@ -1,11 +1,146 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="description" content="Get inspired with random motivational quotes every day.">
+    <title>Random Quote Generator - Js Project | TechGuy 360</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <main class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fa-solid fa-quote-left"></i>
+                <span>Quote<span class="logo-highlight">Flow</span></span>
+            </div>
+
+            <p class="header-subtitle">A little inspiration goes a long way.</p>
+        </header>
+
+        <section class="quote-card">
+            <div class="card-top">
+                <span class="card-label">
+                    <i class="fa-solid fa-sparkles"></i>
+                    DAILY INSPIRATION
+                </span>
+
+                <button class="icon-btn favorite-btn" id="favoriteBtn"
+                    aria-label="Add quote to favorites" title="Add to favorites">
+                    <i class="fa-regular fa-heart"></i>
+                </button>
+            </div>
+
+            <div class="quote-content" id="quoteContent" aria-live="polite">
+
+                <div class="quote-icon">
+                    <i class="fa-solid fa-quote-left"></i>
+                </div>
+
+                <h1 id="quoteText">
+                    The secret of getting ahead is getting started.
+                </h1>
+
+                <div class="author">
+                    <span class="author-line"></span>
+                    <p id="authorName">Mark Twain</p>
+                </div>
+
+            </div>
+
+            <div class="quote-category">
+                <span id="categoryTag">Motivation</span>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="quote-actions">
+
+                <div class="action-buttons">
+
+                    <button class="icon-btn" id="copyBtn"
+                        aria-label="Copy quote" title="Copy quote">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+
+                    <button class="icon-btn" id="shareBtn"
+                        aria-label="Share quote" title="Share quote">
+                        <i class="fa-solid fa-share-nodes"></i>
+                    </button>
+
+                </div>
+
+                <button class="new-quote-btn" id="newQuoteBtn">
+                    New Quote
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </div>
+
+        </section>
+
+        <section class="bottom-section">
+            <div class="category-section">
+                <label for="categorySelect">
+                    <i class="fa-solid fa-filter"></i>
+                    Choose Category
+                </label>
+
+                <select id="categorySelect">
+                    <option value="All">All Categories</option>
+                    <option value="Motivation">Motivation</option>
+                    <option value="Success">Success</option>
+                    <option value="Life">Life</option>
+                    <option value="Wisdom">Wisdom</option>
+                    <option value="Happiness">Happiness</option>
+                    <option value="Dreams">Dreams</option>
+                </select>
+            </div>
+
+            <div class="quote-stats">
+                <div class="stat-item">
+                    <i class="fa-solid fa-book-open"></i>
+                    <div>
+                        <h3 id="totalQuotes">20</h3>
+                        <p>Total Quotes</p>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <i class="fa-solid fa-heart"></i>
+                    <div>
+                        <h3 id="favoriteCount">0</h3>
+                        <p>Favorites</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <footer>
+            <p>Made by TechGuy 360 <i class="fa-solid fa-heart"></i> for inspiration.</p>
+        </footer>
+
+        <div class="toast" id="toast" role="status" aria-live="polite">
+            <i class="fa-solid fa-circle-check"></i>
+            <span id="toastMessage">Quote copied successfully!</span>
+        </div>
+
+    </main>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
 </body>
 </html>
