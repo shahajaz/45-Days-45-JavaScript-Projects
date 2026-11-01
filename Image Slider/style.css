@@ -1,0 +1,278 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 15px;
+    color: #1e293b;
+}
+
+/* Main Container */
+.container{
+    width: 100%;
+    max-width: 1000px;
+    text-align: center;
+}
+.header{
+    margin-bottom: 25px;
+}
+
+.header h1{
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #0f172a;
+}
+.header p{
+    color: #64748b;
+    font-size: 16px;
+}
+
+/* Slider */
+.slider{
+    position: relative;
+    width: 100%;
+    height: 520px;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #0f172a;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+.slider-wrapper{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Individual Slides */
+.slide{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+.slide.active{
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+}
+.slide img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Image Caption */
+.caption{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 70px 25px 35px;
+    text-align: left;
+    color: #fff;
+    background: linear-gradient(
+        transparent,
+        rgba(0, 0, 0, 0.8)
+    );
+}
+.caption h2{
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+.caption p{
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Navigation Buttons */
+.nav-btn{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    color: #0f172a;
+    font-size: 22px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.nav-btn:hover{
+    background: #fff;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn{
+    left: 20px;
+}
+
+.next-btn{
+    right: 20px;
+}
+
+/* Image Counter */
+.image-counter{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 3;
+    padding: 8px 15px;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    font-size: 14px;
+}
+
+/* Fullscreen Button */
+.fullscreen-btn{
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    z-index: 3;
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.fullscreen-btn:hover{
+    background: rgba(0, 0, 0, 0.85);
+}
+
+/* Navigation Dots */
+.dots-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 22px 0;
+}
+
+.dot{
+    width: 12px;
+    height: 12px;
+    border: none;
+    border-radius: 50%;
+    background: #cbd5e1;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.dot.active{
+    width: 30px;
+    border-radius: 10px;
+    background: #2563eb;
+}
+
+.dot:hover{
+    background: #64748b;
+}
+
+/*  Slider Controls */
+.controls{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.control-btn{
+    padding: 11px 22px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.control-btn:hover{
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px){
+    .header h1{
+        font-size: 28px;
+    }
+    .slider{
+        height: 400px;
+    }
+    .caption h2{
+        font-size: 24px;
+    }
+    .caption p{
+        font-size: 14px;
+    }
+}
+@media (max-width: 480px){
+    body{
+        padding: 20px 10px;
+    }
+    .header h1{
+        font-size: 25px;
+    }
+    .header p{
+        font-size: 13px;
+    }
+    .slider{
+        height: 320px;
+        border-radius: 10px;
+    }
+    .nav-btn{
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+    .prev-btn{
+        left: 10px;
+    }
+    .next-btn{
+        right: 10px;
+    }
+    .caption{
+        padding: 50px 15px 25px;
+    }
+    .caption h2{
+        font-size: 20px;
+    }
+    .caption p{
+        font-size: 13px;
+    }
+    .image-counter{
+        top: 12px;
+        left: 12px;
+        font-size: 12px;
+    }
+    .fullscreen-btn{
+        top: 10px;
+        right: 12px;
+    }
+    .controls{
+        gap: 10px;
+    }
+    .control-btn{
+        padding: 10px 15px;
+        font-size: 13px;
+    }
+}

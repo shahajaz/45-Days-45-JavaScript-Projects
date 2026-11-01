@@ -3,9 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Responsive interactive image slider built with HTML, CSS and JavaScript.">
     <title>Image Slider - JavaScript | TechGuy 360</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    
+    <main class="container">
+        <header class="header">
+            <h1>Image Slider</h1>
+            <p>Explore beautiful images with an interactive carousel.</p>
+        </header>
+
+        <section class="slider" aria-label="Image carousel">
+            <div class="slider-wrapper" id="sliderWrapper">
+                <div class="slide active">
+                    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200"
+                         alt="Beautiful mountain landscape">
+                    <div class="caption">
+                        <h2>Mountain Landscape</h2>
+                        <p>Explore the beauty of nature.</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1200"
+                         alt="Beautiful lake and mountains">
+                    <div class="caption">
+                        <h2>Peaceful Lake</h2>
+                        <p>Discover peaceful destinations.</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200"
+                         alt="Tropical beach">
+                    <div class="caption">
+                        <h2>Tropical Beach</h2>
+                        <p>Enjoy the ocean and sunshine.</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200"
+                         alt="Snow-covered mountain at night">
+                    <div class="caption">
+                        <h2>Snowy Mountains</h2>
+                        <p>Experience the magic of winter.</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=1200"
+                         alt="Sunrise over a green landscape">
+                    <div class="caption">
+                        <h2>Golden Sunrise</h2>
+                        <p>Welcome every new beginning.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Previous Button -->
+            <button class="nav-btn prev-btn" id="prevBtn"
+                    aria-label="Previous image">
+                &#10094;
+            </button>
+
+            <!-- Next Button -->
+            <button class="nav-btn next-btn" id="nextBtn"
+                    aria-label="Next image">
+                &#10095;
+            </button>
+
+            <!-- Image Counter -->
+            <div class="image-counter" id="imageCounter"
+                 aria-live="polite">
+                1 / 5
+            </div>
+
+            <!-- Fullscreen Button -->
+            <button class="fullscreen-btn" id="fullscreenBtn"
+                    aria-label="View fullscreen">
+                &#9974;
+            </button>
+        </section>
+
+        <!-- Navigation Dots -->
+        <div class="dots-container" id="dotsContainer"
+             aria-label="Choose an image">
+        </div>
+
+        <!-- Slider Controls -->
+        <div class="controls">
+            <button id="playPauseBtn" class="control-btn">
+                <span id="playPauseIcon">&#10074;&#10074;</span>
+                <span id="playPauseText">Pause</span>
+            </button>
+
+            <button id="restartBtn" class="control-btn">
+                &#8635; Restart
+            </button>
+        </div>
+    </main>
 </body>
 </html>
