@@ -1,11 +1,98 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An interactive number guessing game built with JavaScript.">
     <title>Number Guessing Game - Js Project | TechGuy 360</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <main class="game-container">
+        <h1>Number Guessing Game</h1>
+        <p class="subtitle">
+            Guess the secret number and test your skills!
+        </p>
+
+        <section class="settings">
+            <label for="difficulty">Difficulty Level:</label>
+
+            <select id="difficulty">
+                <option value="easy">Easy</option>
+                <option value="medium" selected>Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+
+            <label class="timer-option">
+                <input type="checkbox" id="enableTimer">
+                Enable Timer
+            </label>
+        </section>
+
+        <section class="game-info">
+            <div class="info-card">
+                <span>Number Range</span>
+                <strong id="range">1 - 100</strong>
+            </div>
+
+            <div class="info-card">
+                <span>Attempts Left</span>
+                <strong id="attempts">7 / 7</strong>
+            </div>
+
+            <div class="info-card">
+                <span>Current Score</span>
+                <strong id="score">0</strong>
+            </div>
+
+            <div class="info-card">
+                <span>Best Score</span>
+                <strong id="bestScore">0</strong>
+            </div>
+
+            <div class="info-card">
+                <span>Time</span>
+                <strong id="timer">Off</strong>
+            </div>
+        </section>
+
+        <section class="game-area">
+            <h2>Enter Your Guess</h2>
+            <input
+                type="number"
+                id="guessInput"
+                placeholder="Enter a number"
+                min="1"
+                max="100"
+                autocomplete="off"
+            >
+            <button id="guessButton">
+                Submit Guess
+            </button>
+
+            <p id="message" class="message info" aria-live="polite">
+                Guess a number between 1 and 100.
+            </p>
+        </section>
+
+        <section class="history-section">
+            <h2>Guess History</h2>
+            <ul id="guessHistory"></ul>
+        </section>
+
+        <section class="statistics">
+            <h2>Game Statistics</h2>
+            <p>Games Played: <strong id="gamesPlayed">0</strong></p>
+            <p>Wins: <strong id="wins">0</strong></p>
+            <p>Losses: <strong id="losses">0</strong></p>
+        </section>
+
+        <button id="restartButton" class="restart-button">
+            Restart Game
+        </button>
+    </main>
+
+    <script src="script.js" defer></script>
 </body>
 </html>
