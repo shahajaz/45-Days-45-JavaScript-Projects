@@ -1,0 +1,307 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --primary: #ff7829;
+    --primary-dark: #e56748;
+    --background: #f4f6fb;
+    --white: #ffffff;
+    --text: #20243a;
+    --muted: #777d91;
+    --border: #e4e7ef;
+    --success: #16a36a;
+    --danger: #e34d59;
+    --shadow: 0 15px 45px rgba(30, 40, 80, 0.08);
+}
+body{
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 16px;
+}
+
+/* Main Container */
+.app-container{
+    width: 100%;
+    max-width: 850px;
+}
+
+/* Header */
+.app-header{
+    text-align: center;
+    margin-bottom: 30px;
+}
+.logo{
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+.app-header h1{
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+.app-header p{
+    color: var(--muted);
+    font-size: 15px;
+}
+
+/* Calculator Card */
+.calculator-card{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+/* Input Section */
+.input-section{
+    padding: 35px;
+}
+.form-group{
+    margin-bottom: 25px;
+}
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.input-wrapper{
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 0 13px;
+    transition: border 0.3s;
+}
+.input-wrapper:focus-within{
+    border-color: var(--primary);
+}
+.currency{
+    color: var(--muted);
+    font-size: 18px;
+    font-weight: 600;
+}
+input{
+    width: 100%;
+    padding: 13px 10px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    outline: none;
+    font-size: 15px;
+    color: var(--text);
+    background: transparent;
+    transition: border 0.3s;
+}
+.input-wrapper input{
+    border: none;
+}
+input:focus{
+    border-color: var(--primary);
+}
+input::placeholder{
+    color: #a4a8b5;
+}
+
+/* Remove number input arrows */
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"]{
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+/* Tip Buttons */
+.tip-buttons{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+}
+.tip-btn{
+    padding: 12px;
+    border: 1px solid var(--border);
+    background: var(--white);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    transition: all 0.25s ease;
+}
+.tip-btn:hover{
+    border-color: var(--primary);
+    color: var(--primary);
+}
+.tip-btn.active{
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
+}
+.custom-label{
+    margin-top: 5px;
+}
+
+/* People Control */
+.people-control{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.people-control input{
+    text-align: center;
+    font-weight: 600;
+    flex: 1;
+}
+.people-control button{
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 8px;
+    background: #efefff;
+    color: var(--primary);
+    font-size: 23px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.people-control button:hover{
+    background: var(--primary);
+    color: var(--white);
+}
+
+/* Reset Button */
+.reset-btn{
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.reset-btn:hover{
+    background: #fff0f0;
+    color: var(--danger);
+    border-color: var(--danger);
+}
+
+/* Error Messages */
+.error{
+    display: block;
+    color: var(--danger);
+    font-size: 12px;
+    margin-top: 6px;
+    min-height: 14px;
+}
+
+/* Result Section */
+.result-section{
+    background: #f8f8ff;
+    padding: 35px;
+}
+.result-section h2{
+    font-size: 16px;
+    margin-bottom: 28px;
+}
+.result-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+    font-size: 14px;
+}
+.result-item span{
+    color: var(--muted);
+}
+.result-item strong{
+    font-size: 15px;
+    font-weight: 700;
+}
+.result-divider{
+    height: 1px;
+    background: var(--border);
+    margin: 25px 0;
+}
+.highlight strong{
+    color: var(--primary);
+}
+
+/* Final Result */
+.final-result{
+    background: var(--primary);
+    padding: 22px;
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 30px;
+    color: var(--white);
+}
+.final-result p{
+    font-size: 13px;
+    opacity: 0.9;
+    margin-bottom: 8px;
+}
+.final-result h2{
+    font-size: 30px;
+    margin: 0;
+    color: var(--white);
+}
+
+
+footer{
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 25px;
+}
+
+/* Responsive Design */
+@media (max-width: 650px) {
+    body{
+        align-items: flex-start;
+        padding: 25px 14px;
+    }
+    .app-header h1{
+        font-size: 27px;
+    }
+    .calculator-card{
+        grid-template-columns: 1fr;
+    }
+    .input-section,
+    .result-section{
+        padding: 25px 20px;
+    }
+    .result-section{
+        border-top: 1px solid var(--border);
+    }
+    .tip-buttons{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 350px){
+    .tip-buttons{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .result-item {
+        font-size: 12px;
+    }
+    .result-item strong {
+        font-size: 13px;
+    }
+}

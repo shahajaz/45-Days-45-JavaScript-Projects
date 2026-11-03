@@ -3,9 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tip Calculator - Js Project | TechGuy 360</title>
+    <meta name="description" content="Calculate tips, split restaurant bills, and find the total cost per person with this smart tip calculator.">
+    <title>Tip Calculator | Smart Bill Splitter - Js Project | TechGuy 360</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <main class="app-container">
+        <header class="app-header">
+            <div class="logo">💰</div>
+            <h1>Tip Calculator</h1>
+            <p>Smart Bill & Tip Splitter</p>
+        </header>
+
+        <section class="calculator-card">
+            <div class="input-section">
+                <!-- Bill Amount -->
+                <div class="form-group">
+                    <label for="billAmount">Bill Amount</label>
+                    <div class="input-wrapper">
+                        <span class="currency">₹</span>
+                        <input
+                            type="number"
+                            id="billAmount"
+                            placeholder="Enter bill amount"
+                            min="0"
+                            step="0.01"
+                        >
+                    </div>
+                    <small class="error" id="billError"></small>
+                </div>
+
+                <!-- Tip Percentage -->
+                <div class="form-group">
+                    <label>Select Tip Percentage</label>
+                    <div class="tip-buttons">
+                        <button type="button" class="tip-btn" data-tip="5">5%</button>
+                        <button type="button" class="tip-btn" data-tip="10">10%</button>
+                        <button type="button" class="tip-btn active" data-tip="15">15%</button>
+                        <button type="button" class="tip-btn" data-tip="20">20%</button>
+                        <button type="button" class="tip-btn" data-tip="25">25%</button>
+                    </div>
+
+                    <label for="customTip" class="custom-label">
+                        Custom Tip (%)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="customTip"
+                        placeholder="Enter custom percentage"
+                        min="0"
+                        max="100"
+                        step="0.01"
+                    >
+                    <small class="error" id="tipError"></small>
+                </div>
+
+                <!-- Number of People -->
+                <div class="form-group">
+                    <label for="people">Number of People</label>
+                    <div class="people-control">
+                        <button type="button" id="decreasePeople">−</button>
+                        <input
+                            type="number"
+                            id="people"
+                            value="1"
+                            min="1"
+                            step="1"
+                        >
+                        <button type="button" id="increasePeople">+</button>
+                    </div>
+                    <small class="error" id="peopleError"></small>
+                </div>
+                <button type="button" id="resetBtn" class="reset-btn">
+                    ↻ Reset Calculator
+                </button>
+
+            </div>
+
+            <!-- Results Section -->
+            <div class="result-section">
+                <h2>Bill Summary</h2>
+                <div class="result-item">
+                    <span>Bill Amount</span>
+                    <strong id="resultBill">₹0.00</strong>
+                </div>
+
+                <div class="result-item">
+                    <span>Tip Percentage</span>
+                    <strong id="resultTipPercent">15%</strong>
+                </div>
+
+                <div class="result-item">
+                    <span>Total Tip</span>
+                    <strong id="resultTip">₹0.00</strong>
+                </div>
+
+                <div class="result-item">
+                    <span>Total Bill</span>
+                    <strong id="resultTotal">₹0.00</strong>
+                </div>
+
+                <div class="result-divider"></div>
+
+                <div class="result-item highlight">
+                    <span>Tip Per Person</span>
+                    <strong id="tipPerPerson">₹0.00</strong>
+                </div>
+
+                <div class="result-item highlight">
+                    <span>Bill Per Person</span>
+                    <strong id="billPerPerson">₹0.00</strong>
+                </div>
+
+                <div class="final-result">
+                    <p>Total Cost Per Person</p>
+                    <h2 id="totalPerPerson">₹0.00</h2>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Built with ❤️ TechGuy 360</p>
+        </footer>
+    </main>
+    <script src="script.js"></script>
 </body>
 </html>
