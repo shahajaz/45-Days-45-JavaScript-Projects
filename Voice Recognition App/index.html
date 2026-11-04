@@ -3,9 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voice Recognition - Js Project | TechGuy 360</title>
+    <meta name="description" content="A modern voice recognition application that converts speech into text.">
+    <title>Voice Recognition App - Speech to Text - Js Project | TechGuy 360</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-    
+    <div class="app-container">
+
+        <!-- Header -->
+        <header class="header">
+            <a href="#" class="logo">
+                <span class="logo-icon">
+                    <i class="fa-solid fa-microphone-lines"></i>
+                </span>
+                <span>Voice<span class="logo-highlight">Flow</span></span>
+            </a>
+
+            <div class="header-actions">
+                <span class="header-label">Speech to Text</span>
+                <button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle dark mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Hero Section -->
+            <section class="hero">
+                <span class="hero-badge">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    Browser-Based Speech Recognition
+                </span>
+                <h1>Turn Your <span>Voice</span> Into Text</h1>
+
+                <p>
+                    Speak naturally and watch your words appear instantly.
+                    Simple, fast, and completely interactive.
+                </p>
+            </section>
+
+            <!-- Main Application -->
+            <section class="app-card">
+                <!-- Status -->
+                <div class="status-bar">
+                    <div class="status-info">
+                        <span class="status-dot" id="statusDot"></span>
+                        <span id="statusText">Ready to listen</span>
+                    </div>
+
+                    <span class="recording-time" id="recordingTime">
+                        <i class="fa-regular fa-clock"></i>
+                        00:00
+                    </span>
+                </div>
+
+                <!-- Microphone -->
+                <div class="microphone-section">
+                    <div class="mic-wrapper" id="micWrapper">
+                        <div class="mic-ring ring-one"></div>
+                        <div class="mic-ring ring-two"></div>
+
+                        <button class="mic-button" id="micButton"
+                            aria-label="Start voice recognition">
+                            <i class="fa-solid fa-microphone"></i>
+                        </button>
+                    </div>
+
+                    <h2 id="micHeading">Ready to Listen?</h2>
+                    <p id="micDescription">
+                        Click the microphone and start speaking.
+                    </p>
+                </div>
+
+                <!-- Settings -->
+                <div class="settings-row">
+                    <div class="setting-group">
+                        <label for="languageSelect">
+                            <i class="fa-solid fa-language"></i>
+                            Language
+                        </label>
+
+                        <select id="languageSelect">
+                            <option value="en-US">English (US)</option>
+                            <option value="en-GB">English (UK)</option>
+                            <option value="en-IN">English (India)</option>
+                            <option value="hi-IN">Hindi</option>
+                            <option value="bn-IN">Bengali</option>
+                            <option value="ur-IN">Urdu</option>
+                            <option value="es-ES">Spanish</option>
+                            <option value="fr-FR">French</option>
+                            <option value="de-DE">German</option>
+                            <option value="ja-JP">Japanese</option>
+                            <option value="zh-CN">Chinese</option>
+                            <option value="ar-SA">Arabic</option>
+                        </select>
+                    </div>
+
+                    <label class="continuous-setting">
+                        <input type="checkbox" id="continuousToggle">
+                        <span class="custom-checkbox"></span>
+                        <span>Continuous Mode</span>
+                    </label>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="controls">
+                    <button class="btn btn-primary" id="startButton">
+                        <i class="fa-solid fa-play"></i>
+                        Start Listening
+                    </button>
+
+                    <button class="btn btn-stop" id="stopButton" disabled>
+                        <i class="fa-solid fa-stop"></i>
+                        Stop
+                    </button>
+                </div>
+
+                <!-- Transcription -->
+                <div class="transcription-section">
+                    <div class="section-heading">
+                        <div>
+                            <h3>
+                                <i class="fa-solid fa-file-lines"></i>
+                                Your Transcription
+                            </h3>
+                            <p>Recognized speech will appear here.</p>
+                        </div>
+
+                        <span class="word-count" id="wordCount">
+                            0 words
+                        </span>
+                    </div>
+
+                    <div class="editor-wrapper">
+                        <textarea
+                            id="transcription"
+                            placeholder="Your recognized speech will appear here... Click 'Start Listening' and begin speaking."
+                            spellcheck="true"
+                            aria-label="Editable speech transcription"
+                        ></textarea>
+                        <div class="interim-text" id="interimText"></div>
+                    </div>
+
+                    <!-- Text Actions -->
+                    <div class="text-actions">
+
+                        <button class="action-btn" id="copyButton">
+                            <i class="fa-regular fa-copy"></i>
+                            Copy
+                        </button>
+
+                        <button class="action-btn" id="downloadButton">
+                            <i class="fa-solid fa-download"></i>
+                            Download
+                        </button>
+
+                        <button class="action-btn danger-btn" id="clearButton">
+                            <i class="fa-solid fa-trash-can"></i>
+                            Clear
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Error Message -->
+                <div class="error-message" id="errorMessage" role="alert">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span id="errorText"></span>
+                </div>
+
+                <!-- History -->
+                <div class="history-section">
+                    <div class="history-heading">
+                        <h3>
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                            Recent History
+                        </h3>
+
+                        <button class="clear-history" id="clearHistoryButton">
+                            Clear History
+                        </button>
+                    </div>
+
+                    <div class="history-list" id="historyList">
+                        <p class="empty-history">
+                            No saved transcriptions yet.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features -->
+            <section class="features-section">
+                <h2>Designed for Easy Communication</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fa-solid fa-bolt"></i>
+                        <h3>Real-Time Results</h3>
+                        <p>See your spoken words converted into text instantly.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <i class="fa-solid fa-globe"></i>
+                        <h3>Multiple Languages</h3>
+                        <p>Choose from different recognition languages.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <h3>Easy to Use</h3>
+                        <p>Simple controls for a smooth transcription experience.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <i class="fa-solid fa-file-arrow-down"></i>
+                        <h3>Export Text</h3>
+                        <p>Copy or download your transcription whenever needed.</p>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>
+                Built with <i class="fa-solid fa-heart"></i> TechGuy 360
+            </p>
+            <span>© 2026 VoiceFlow. All rights reserved.</span>
+        </footer>
+    </div>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toastMessage">Success!</span>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js" defer></script>
 </body>
 </html>
+
