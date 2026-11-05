@@ -3,9 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stop Watch </title>
+    <meta name="description" content="A modern precision stopwatch application with lap tracking.">
+    <title>Stopwatch - Js Project | TechGuy 360 </title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <main class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-stopwatch"></i>
+                </div>
+                <div>
+                    <h1>Stopwatch</h1>
+                    <p>Precision Time Tracking</p>
+                </div>
+            </div>
+
+            <div class="status">
+                <span class="status-dot" id="statusDot"></span>
+                <span id="statusText">Ready</span>
+            </div>
+        </header>
+
+        <!-- Main Stopwatch -->
+        <section class="stopwatch-card">
+            <div class="timer-label">
+                <i class="fa-regular fa-clock"></i>
+                <span>ELAPSED TIME</span>
+            </div>
+
+            <!-- Timer Display -->
+            <div class="timer-display" id="timerDisplay" aria-live="off">
+                <span id="hours">00</span>
+                <span class="separator">:</span>
+                <span id="minutes">00</span>
+                <span class="separator">:</span>
+                <span id="seconds">00</span>
+                <span class="decimal">.</span>
+                <span class="milliseconds" id="milliseconds">000</span>
+            </div>
+            <p class="timer-caption">HH : MM : SS . MS</p>
+
+            <!-- Controls -->
+            <div class="controls">
+                <button class="control-btn secondary-btn" id="resetBtn" disabled>
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span>Reset</span>
+                </button>
+
+                <button class="control-btn primary-btn" id="startBtn">
+                    <i class="fa-solid fa-play" id="startIcon"></i>
+                    <span id="startText">Start</span>
+                </button>
+
+                <button class="control-btn secondary-btn" id="lapBtn" disabled>
+                    <i class="fa-solid fa-flag"></i>
+                    <span>Lap</span>
+                </button>
+            </div>
+
+            <!-- Keyboard Shortcuts -->
+            <div class="keyboard-hint">
+                <span><kbd>Space</kbd> Start / Pause</span>
+                <span><kbd>L</kbd> Lap</span>
+                <span><kbd>R</kbd> Reset</span>
+            </div>
+        </section>
+
+        <!-- Lap History -->
+        <section class="laps-section">
+            <div class="laps-header">
+                <div>
+                    <h2>
+                        <i class="fa-solid fa-flag-checkered"></i>
+                        Lap History
+                    </h2>
+                    <p id="lapCount">0 laps recorded</p>
+                </div>
+
+                <div class="lap-actions">
+                    <button class="icon-btn" id="copyBtn" title="Copy lap times" disabled>
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+
+                    <button class="icon-btn delete-btn" id="clearBtn" title="Clear lap history" disabled>
+                        <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Lap Table -->
+            <div class="lap-table-container">
+                <table class="lap-table">
+                    <thead>
+                        <tr>
+                            <th>Lap</th>
+                            <th>Lap Time</th>
+                            <th>Total Time</th>
+                            <th>Performance</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="lapList">
+                        <tr class="empty-row">
+                            <td colspan="4">
+                                <div class="empty-state">
+                                    <i class="fa-solid fa-stopwatch"></i>
+                                    <p>No laps recorded yet</p>
+                                    <span>Start the stopwatch and press Lap to record your first lap.</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="lap-footer">
+                <span>
+                    <i class="fa-solid fa-circle-info"></i>
+                    Your lap history is saved automatically.
+                </span>
+
+                <span id="storageStatus">LocalStorage enabled</span>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Built with <span>♥</span> TechGuy 360</p>
+        </footer>
+    </main>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast" role="status" aria-live="polite">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toastMessage">Success</span>
+    </div>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
