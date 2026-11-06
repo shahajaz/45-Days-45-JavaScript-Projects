@@ -3,11 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>GitHub Profile Finder -  Js Project | TechGuy 360</title>
+    <meta name="description" content="Search GitHub developers and explore their profiles, repositories, followers, and statistics.">
+    <meta name="author" content="DevFinder">
+    <title>GitHub Profile Finder | Developer Search</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="header">
+            <a href="#" class="logo">
+                <i class="fa-brands fa-github"></i>
+                <span>DevFinder</span>
+            </a>
+            <span class="header-label">
+                <i class="fa-solid fa-code"></i>
+                Developer Search
+            </span>
 
-    <script src="script.js"></script>
+        </header>
+        <!-- MAIN CONTENT -->
+        <main>
+            <!-- HERO SECTION -->
+            <section class="hero">
+                <span class="hero-badge">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    GitHub Developer Explorer
+                </span>
+                <h1>
+                    Discover <span>Developers</span>
+                    <br>Across GitHub
+                </h1>
+                <p>Search GitHub profiles and explore developer information, repositories, followers, and more.</p>
+
+                <!-- SEARCH FORM -->
+                <form class="search-form" id="searchForm">
+                    <i class="fa-brands fa-github search-icon"></i>
+                    <input type="text" id="usernameInput" placeholder="Enter GitHub username..."
+                        autocomplete="off" aria-label="GitHub username" required
+                    >
+                    <button type="submit" id="searchBtn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        Search
+                    </button>
+                </form>
+
+                <div class="search-hint">
+                    <i class="fa-solid fa-circle-info"></i>
+                    Try: torvalds, gaearon, or octocat
+                </div>
+            </section>
+
+            <!-- RECENT SEARCHES -->
+            <section class="recent-section" id="recentSection" hidden>
+                <div class="recent-heading">
+                    <h3>
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        Recent Searches
+                    </h3>
+                    <button type="button" id="clearHistoryBtn" class="clear-history"> Clear History</button>
+                </div>
+                <div class="recent-list" id="recentList"></div>
+            </section>
+
+            <!-- MESSAGE SECTION -->
+            <div class="message" id="message" role="status" aria-live="polite" hidden></div>
+
+            <!-- LOADING SECTION -->
+            <section class="loading-section" id="loadingSection" hidden>
+                <div class="loader"></div>
+                <h3>Searching GitHub...</h3>
+                <p>Fetching developer profile and repositories.</p>
+            </section>
+
+            <!-- PROFILE SECTION -->
+            <section class="profile-section" id="profileSection" hidden>
+                <!-- PROFILE CARD -->
+                <div class="profile-card">
+                    <div class="profile-top">
+                        <img src="" alt="GitHub profile avatar" class="avatar" id="avatar">
+                        <div class="profile-info">
+                            <h2 id="name">Developer Name</h2>
+                            <a href="#" id="username" target="_blank" rel="noopener noreferrer">@username</a>
+                            <p class="joined-date" id="joinedDate"></p>
+                        </div>
+                        <a href="#" class="github-link" id="githubLink" target="_blank" rel="noopener noreferrer" aria-label="Open GitHub profile">
+                            <i class="fa-brands fa-github"></i>View Profile
+                        </a>
+                    </div>
+
+                    <!-- BIO -->
+                    <p class="bio" id="bio">Developer biography</p>
+
+                    <!-- PROFILE DETAILS -->
+                    <div class="profile-details">
+
+                        <!-- COMPANY -->
+                        <div class="detail-item" id="companyItem">
+                            <i class="fa-solid fa-building"></i>
+                            <span id="company"></span>
+                        </div>
+
+                        <!-- LOCATION -->
+                        <div class="detail-item" id="locationItem">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span id="location"></span>
+                        </div>
+
+                        <!-- WEBSITE -->
+                        <div class="detail-item" id="blogItem">
+                            <i class="fa-solid fa-link"></i>
+                            <a href="#" id="blog" target="_blank" rel="noopener noreferrer">
+                            </a>
+                        </div>
+
+
+                        <!-- TWITTER -->
+                        <div class="detail-item" id="twitterItem">
+                            <i class="fa-brands fa-x-twitter"></i>
+                            <a href="#" id="twitter" target="_blank" rel="noopener noreferrer">
+                            </a>
+                        </div>
+
+                        <!-- EMAIL -->
+                        <div class="detail-item" id="emailItem">
+                            <i class="fa-solid fa-envelope"></i>
+                            <a href="#" id="email" target="_blank" rel="noopener noreferrer">           </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATISTICS -->
+                <div class="stats-grid">
+                    <!-- REPOSITORIES -->
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+                        <p>Repositories</p>
+                        <h3 id="reposCount">0</h3>
+                    </div>
+
+                    <!-- FOLLOWERS -->
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <p>Followers</p>
+                        <h3 id="followersCount">0</h3>
+                    </div>
+
+                    <!-- FOLLOWING -->
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fa-solid fa-user-plus"></i>
+                        </div>
+                        <p>Following</p>
+                        <h3 id="followingCount">0</h3>
+                    </div>
+
+                    <!-- TOTAL STARS -->
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p>Total Stars</p>
+                        <h3 id="starsCount">0</h3>
+                    </div>
+                </div>
+
+                <!-- REPOSITORIES SECTION -->
+                <div class="repositories-section">
+                    <div class="section-heading">
+                        <div>
+                            <h2><i class="fa-solid fa-folder-open"></i>Popular Repositories</h2>
+                            <p>Explore the developer's public projects.</p>
+                        </div>
+                        <span class="repo-count" id="repoLabel">0 repositories</span>
+                    </div>
+                    <!-- DYNAMIC REPOSITORIES -->
+                    <div
+                        class="repositories-grid"
+                        id="repositoriesGrid">
+                    </div>
+                </div>
+            </section>
+
+            <!-- EMPTY STATE -->
+            <section class="empty-state" id="emptyState">
+                <div class="empty-icon"><i class="fa-brands fa-github"></i></div>
+                <h2>
+                    Find Your Next Developer Inspiration
+                </h2>
+                <p>
+                    Enter a GitHub username above to discover developer
+                    profiles, coding projects, and open-source contributions.
+                </p>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <p>Design & Built by <i class="fa-solid fa-heart"></i> TechGuy 360</p>
+
+            <!-- <a
+                href="https://docs.github.com/en/rest"
+                target="_blank"
+                rel="noopener noreferrer">
+
+                GitHub REST API
+
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+            </a> -->
+        </footer>
+    </div>
+    <script src="./script.js"></script>
 </body>
 </html>
