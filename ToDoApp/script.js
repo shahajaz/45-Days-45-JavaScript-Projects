@@ -1,25 +1,14 @@
-// =======================
-// DOM
-// =======================
-
 const goalInput = document.getElementById("goalInput");
 const addGoalBtn = document.getElementById("addGoalBtn");
 const goalList = document.getElementById("goalList");
 const progressValue = document.getElementById("progressValue");
 
-
-// =======================
-// STORAGE
-// =======================
-
 const STORAGE_KEY = "goals";
 
 function loadGoals(){
-
-return JSON.parse(
-localStorage.getItem(STORAGE_KEY)
-) || [];
-
+    return JSON.parse(
+        localStorage.getItem(STORAGE_KEY)
+    ) || [];
 }
 
 function saveGoals(){

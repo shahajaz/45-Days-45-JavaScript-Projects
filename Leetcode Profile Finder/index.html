@@ -3,9 +3,371 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart - Js Project | TechGuy 360</title>
+    <meta name="description" content="Find LeetCode profiles and explore coding statistics, problem-solving progress, and contest ratings.">
+    <title>LeetCode Profile Finder - Js Project | TechGuy 360</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-code"></i>
+                <span>LeetCode<span class="logo-highlight">Finder</span></span>
+            </a>
+
+            <a href="https://leetcode.com/"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="leetcode-link">
+                Visit LeetCode
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+
+        </header>
+        <!-- Main -->
+        <main>
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-chart-line"></i>
+                    Developer Statistics
+                </div>
+
+                <h1>
+                    Discover Your
+                    <span>LeetCode Profile</span>
+                </h1>
+
+                <p>
+                    Search any LeetCode username and explore coding
+                    achievements, problem-solving statistics, and
+                    competitive programming performance.
+                </p>
+
+                <!-- Search Form -->
+                <form id="search-form" class="search-form">
+                    <div class="search-input-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        <input
+                            type="text"
+                            id="username-input"
+                            placeholder="Enter LeetCode username..."
+                            autocomplete="off"
+                            required
+                        >
+
+                        <button type="button" id="clear-btn"
+                                class="clear-btn" aria-label="Clear username">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <button type="submit" id="search-btn"
+                            class="search-btn">
+                        <i class="fa-solid fa-search"></i>
+                        Search Profile
+                    </button>
+                </form>
+
+                <p class="search-hint">
+                    <i class="fa-solid fa-circle-info"></i>
+                    Enter a public LeetCode username.
+                </p>
+            </section>
+
+            <!-- Loading -->
+            <section id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <h3>Fetching Profile...</h3>
+                <p>Analyzing LeetCode statistics. Please wait.</p>
+            </section>
+
+            <!-- Error -->
+            <section id="error-message" class="error-message hidden"
+                     role="alert">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <h3>Profile Not Found</h3>
+                <p id="error-text">
+                    Unable to fetch the requested profile.
+                </p>
+            </section>
+
+            <!-- Profile Dashboard -->
+            <section id="dashboard" class="dashboard hidden">
+                <!-- Profile Card -->
+                <div class="profile-card">
+                    <div class="profile-top">
+                        <div class="avatar-wrapper">
+                            <img id="profile-avatar"
+                                 src=""
+                                 alt="LeetCode profile avatar">
+
+                            <span class="online-indicator"></span>
+                        </div>
+
+                        <div class="profile-info">
+                            <h2 id="profile-name">Developer Name</h2>
+                            <p id="profile-username">@username</p>
+                            <p id="profile-country" class="profile-meta">
+                                <i class="fa-solid fa-globe"></i>
+                                <span>Country not available</span>
+                            </p>
+                        </div>
+
+                        <a id="profile-link" href="#" target="_blank" rel="noopener noreferrer" class="visit-profile-btn">
+                            View Profile
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+
+                    <div class="profile-divider"></div>
+                    <div class="profile-bottom">
+                        <div class="profile-detail">
+                            <i class="fa-solid fa-ranking-star"></i>
+                            <div>
+                                <span>Global Ranking</span>
+                                <strong id="global-ranking">N/A</strong>
+                            </div>
+                        </div>
+
+                        <div class="profile-detail">
+                            <i class="fa-solid fa-star"></i>
+                            <div>
+                                <span>Reputation</span>
+                                <strong id="reputation">0</strong>
+                            </div>
+                        </div>
+
+                        <div class="profile-detail">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            <div>
+                                <span>Active Days</span>
+                                <strong id="active-days">0</strong>
+                            </div>
+                        </div>
+
+                        <div class="profile-detail">
+                            <i class="fa-solid fa-fire"></i>
+                            <div>
+                                <span>Current Streak</span>
+                                <strong id="current-streak">0 Days</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Statistics -->
+                <div class="section-heading">
+                    <div>
+                        <h2>Problem Solving Statistics</h2>
+                        <p>Track your coding progress.</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card total-card">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <p>Total Solved</p>
+                        <h3 id="total-solved">0</h3>
+                        <span>Problems completed</span>
+                    </div>
+
+                    <div class="stat-card easy-card">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <p>Easy Solved</p>
+                        <h3 id="easy-solved">0</h3>
+                        <span id="easy-total">0 total problems</span>
+                    </div>
+
+                    <div class="stat-card medium-card">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <p>Medium Solved</p>
+                        <h3 id="medium-solved">0</h3>
+                        <span id="medium-total">0 total problems</span>
+                    </div>
+
+                    <div class="stat-card hard-card">
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-fire"></i>
+                        </div>
+                        <p>Hard Solved</p>
+                        <h3 id="hard-solved">0</h3>
+                        <span id="hard-total">0 total problems</span>
+                    </div>
+                </div>
+
+                <!-- Progress Section -->
+                <section class="progress-card">
+                    <div class="section-heading">
+                        <div>
+                            <h2>Problem Solving Progress</h2>
+                            <p>Difficulty-wise completion percentage.</p>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="easy-text">Easy</span>
+                            <strong id="easy-percentage">0%</strong>
+                        </div>
+
+                        <div class="progress-track">
+                            <div id="easy-progress"
+                                 class="progress-fill easy-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="medium-text">Medium</span>
+                            <strong id="medium-percentage">0%</strong>
+                        </div>
+
+                        <div class="progress-track">
+                            <div id="medium-progress"
+                                 class="progress-fill medium-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="hard-text">Hard</span>
+                            <strong id="hard-percentage">0%</strong>
+                        </div>
+
+                        <div class="progress-track">
+                            <div id="hard-progress" class="progress-fill hard-fill"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contest Statistics -->
+                <section class="contest-card">
+                    <div class="section-heading">
+                        <div>
+                            <h2>Contest Performance</h2>
+                            <p>Your competitive programming statistics.</p>
+                        </div>
+                        <i class="fa-solid fa-trophy contest-heading-icon"></i>
+                    </div>
+
+                    <div class="contest-grid">
+                        <div class="contest-item">
+                            <span>Contest Rating</span>
+                            <h3 id="contest-rating">N/A</h3>
+                        </div>
+
+                        <div class="contest-item">
+                            <span>Contest Ranking</span>
+                            <h3 id="contest-ranking">N/A</h3>
+                        </div>
+
+                        <div class="contest-item">
+                            <span>Attended Contests</span>
+                            <h3 id="contests-attended">0</h3>
+                        </div>
+
+                        <div class="contest-item">
+                            <span>Top Percentage</span>
+                            <h3 id="top-percentage">N/A</h3>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Submission Statistics -->
+                <section class="submission-card">
+                    <div class="section-heading">
+                        <div>
+                            <h2>Submission Statistics</h2>
+                            <p>Accepted submissions compared to total attempts.</p>
+                        </div>
+                    </div>
+
+                    <div class="submission-content">
+                        <div class="acceptance-circle" id="acceptance-circle">
+                            <div class="acceptance-inner">
+                                <h3 id="acceptance-rate">0%</h3>
+                                <span>Acceptance</span>
+                            </div>
+
+                        </div>
+
+                        <div class="submission-details">
+                            <div>
+                                <span>Accepted Submissions</span>
+                                <strong id="accepted-submissions">0</strong>
+                            </div>
+
+                            <div>
+                                <span>Total Submissions</span>
+                                <strong id="total-submissions">0</strong>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Recent Submissions -->
+                <section class="recent-card">
+                    <div class="section-heading">
+                        <div>
+                            <h2>Recent Accepted Problems</h2>
+                            <p>Your latest accepted submissions.</p>
+                        </div>
+                    </div>
+
+                    <div id="recent-submissions"
+                         class="recent-submissions">
+                        <p class="empty-submissions">
+                            No recent submissions available.
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Recent Search History -->
+            <section class="history-section" id="history-section">
+                <div class="history-heading">
+                    <h3>
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        Recent Searches
+                    </h3>
+
+                    <button id="clear-history-btn" class="clear-history-btn">
+                        Clear History
+                    </button>
+                </div>
+
+                <div id="search-history" class="search-history">
+                    <p class="history-empty">No recent searches yet.</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Design & Built <i class="fa-solid fa-heart"></i> TechGuy 360</p>
+            <!-- <p>Data provided by publicly accessible LeetCode information.</p> -->
+        </footer>
+    </div>
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
