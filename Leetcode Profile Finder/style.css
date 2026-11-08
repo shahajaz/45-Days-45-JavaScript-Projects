@@ -687,12 +687,10 @@ a{
     .profile-card {
         padding: 20px;
     }
-
     .profile-top {
         flex-wrap: wrap;
         gap: 15px;
     }
-
     .avatar-wrapper img{
         width: 75px;
         height: 75px;

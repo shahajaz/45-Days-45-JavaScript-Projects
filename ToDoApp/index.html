@@ -3,26 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDo App - JavaScript | TechGuy 360</title>
+    <meta name="description" content="A modern To-Do application to manage daily tasks.">
+    <title>To-Do App - Js Project | TechGuy 360</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1 class="heading">Focus on What <span>really matters</span></h1>
-        <h2 class="title">Today <span>Goals🎯</span></h2>
-        
-        <div class="add-goal">
-            <input class="goal-input" id="goalInput" placeholder="Add New Goal...">
-            <button id="addGoalBtn">Add Goal</button>
-        </div>
-        <div class="progress-bar">
-            <div id="progressValue">0%</div>
-        </div>
-        <div id="goalList"></div>
-        <p class="quote">“Move one step ahead, today!”</p>
-    </div>
-    <script src="script.js"></script>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-check-double"></i>
+                <span>TaskFlow</span>
+            </div>
 
+            <div class="sidebar-section">
+                <p class="sidebar-heading">MENU</p>
+
+                <button class="nav-item active" data-filter="all">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>All Tasks</span>
+                    <span class="nav-count" id="allNavCount">0</span>
+                </button>
+
+                <button class="nav-item" data-filter="active">
+                    <i class="fa-regular fa-clock"></i>
+                    <span>Active</span>
+                    <span class="nav-count" id="activeNavCount">0</span>
+                </button>
+
+                <button class="nav-item" data-filter="completed">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>Completed</span>
+                    <span class="nav-count" id="completedNavCount">0</span>
+                </button>
+            </div>
+
+            <div class="sidebar-bottom">
+                <div class="productivity-card">
+                    <div class="productivity-icon">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3>Stay Productive!</h3>
+                    <p>Small steps every day lead to big results.</p>
+                </div>
+                <p class="sidebar-footer">TaskFlow © 2026</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="topbar">
+                <div>
+                    <p class="welcome-text">YOUR WORKSPACE</p>
+                    <h1>My Tasks <span class="wave">✦</span></h1>
+                    <p class="subtitle">Organize your day and get things done.</p>
+                </div>
+
+                <div class="date-display">
+                    <i class="fa-regular fa-calendar"></i>
+                    <span id="currentDate"></span>
+                </div>
+            </header>
+
+            <!-- Statistics -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+                    <div>
+                        <p>Total Tasks</p>
+                        <h2 id="totalTasks">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                    </div>
+                    <div>
+                        <p>Pending</p>
+                        <h2 id="pendingTasks">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <div>
+                        <p>Completed</p>
+                        <h2 id="completedTasks">0</h2>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Add Task Section -->
+            <section class="task-form-section">
+                <div class="section-title">
+                    <div>
+                        <h2>Add New Task</h2>
+                        <p>What do you need to accomplish?</p>
+                    </div>
+                    <i class="fa-solid fa-pen-to-square title-icon"></i>
+                </div>
+
+                <form id="taskForm">
+                    <div class="form-main">
+                        <input
+                            type="text"
+                            id="taskInput"
+                            placeholder="Enter your task..."
+                            maxlength="150"
+                            required
+                        >
+                        <button type="submit" class="add-btn">
+                            <i class="fa-solid fa-plus"></i>
+                            Add Task
+                        </button>
+                    </div>
+
+                    <div class="form-options">
+                        <div class="input-group">
+                            <label for="priorityInput">
+                                <i class="fa-solid fa-flag"></i> Priority
+                            </label>
+                            <select id="priorityInput">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="dueDateInput">
+                                <i class="fa-regular fa-calendar"></i> Due Date
+                            </label>
+                            <input type="date" id="dueDateInput">
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Task List -->
+            <section class="tasks-section">
+                <div class="tasks-header">
+                    <div>
+                        <h2>My Task List</h2>
+                        <p>Manage and track your progress.</p>
+                    </div>
+
+                    <button id="clearCompletedBtn" class="clear-btn">
+                        <i class="fa-regular fa-trash-can"></i>
+                        Clear Completed
+                    </button>
+                </div>
+
+                <!-- Search -->
+                <div class="toolbar">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input
+                            type="search"
+                            id="searchInput"
+                            placeholder="Search your tasks..."
+                        >
+                    </div>
+                    <span class="task-counter" id="taskCounter">0 tasks</span>
+                </div>
+
+                <!-- Filters -->
+                <div class="filter-tabs">
+                    <button class="filter-btn active" data-filter="all">
+                        All
+                    </button>
+                    <button class="filter-btn" data-filter="active">
+                        Active
+                    </button>
+                    <button class="filter-btn" data-filter="completed">
+                        Completed
+                    </button>
+                </div>
+                <!-- Dynamic Task Container -->
+                <div class="task-list" id="taskList"></div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <p>Design & Developed <i class="fa-solid fa-heart"></i> TechGuy 360</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toastMessage">Task added successfully!</span>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
