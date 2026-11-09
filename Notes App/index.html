@@ -3,9 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notes App - Js Project | TechGuy 360</title>
+    <meta name="description" content="A modern smart notes application to create, organize and manage notes.">
+    <title>Smart Notes App - Js Project | TechGuy 360</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+<div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-note-sticky"></i>
+            </div>
+            <h2>Smart<span>Notes</span></h2>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <button class="add-note-btn" id="addNoteBtn">
+            <i class="fa-solid fa-plus"></i>
+            Create New Note
+        </button>
+
+        <div class="sidebar-section">
+            <p class="section-label">MENU</p>
+            <button class="nav-item active" data-filter="all">
+                <i class="fa-solid fa-note-sticky"></i>
+                <span>All Notes</span>
+                <span class="nav-count" id="allCount">0</span>
+            </button>
+
+            <button class="nav-item" data-filter="pinned">
+                <i class="fa-solid fa-thumbtack"></i>
+                <span>Pinned Notes</span>
+                <span class="nav-count" id="pinnedCount">0</span>
+            </button>
+
+            <button class="nav-item" data-filter="recent">
+                <i class="fa-regular fa-clock"></i>
+                <span>Recently Updated</span>
+            </button>
+        </div>
+
+        <div class="sidebar-section">
+            <p class="section-label">CATEGORIES</p>
+            <button class="nav-item category-item" data-filter="Work">
+                <span class="category-dot work-dot"></span>
+                <span>Work</span>
+                <span class="nav-count" id="workCount">0</span>
+            </button>
+
+            <button class="nav-item category-item" data-filter="Personal">
+                <span class="category-dot personal-dot"></span>
+                <span>Personal</span>
+                <span class="nav-count" id="personalCount">0</span>
+            </button>
+
+            <button class="nav-item category-item" data-filter="Study">
+                <span class="category-dot study-dot"></span>
+                <span>Study</span>
+                <span class="nav-count" id="studyCount">0</span>
+            </button>
+
+            <button class="nav-item category-item" data-filter="Ideas">
+                <span class="category-dot ideas-dot"></span>
+                <span>Ideas</span>
+                <span class="nav-count" id="ideasCount">0</span>
+            </button>
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="storage-info">
+                <i class="fa-solid fa-cloud"></i>
+                <div>
+                    <strong>Local Storage</strong>
+                    <small>Your notes are saved locally</small>
+                </div>
+            </div>
+
+            <button class="clear-all-btn" id="clearAllBtn">
+                <i class="fa-regular fa-trash-can"></i>
+                Clear All Notes
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="menu-btn" id="menuBtn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div>
+                    <h1 id="pageTitle">All Notes</h1>
+                    <p>Capture your thoughts and stay organized.</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput"
+                           placeholder="Search your notes...">
+                    <kbd>Ctrl K</kbd>
+                </div>
+
+                <button class="header-add-btn" id="headerAddBtn">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>New Note</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Notes Toolbar -->
+        <section class="notes-toolbar">
+            <div class="notes-info">
+                <h3>Your Notes</h3>
+                <span id="notesCount">0 notes</span>
+            </div>
+
+            <div class="toolbar-actions">
+                <select id="sortSelect">
+                    <option value="updated">Last Modified</option>
+                    <option value="created">Date Created</option>
+                    <option value="title">Title (A-Z)</option>
+                </select>
+
+                <button class="view-btn active" id="gridViewBtn"
+                        title="Grid View">
+                    <i class="fa-solid fa-grip"></i>
+                </button>
+
+                <button class="view-btn" id="listViewBtn"
+                        title="List View">
+                    <i class="fa-solid fa-list"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Pinned Notes -->
+        <section class="notes-section" id="pinnedSection" hidden>
+            <div class="section-heading">
+                <h3><i class="fa-solid fa-thumbtack"></i> Pinned Notes</h3>
+            </div>
+            <div class="notes-grid" id="pinnedNotes"></div>
+        </section>
+
+        <!-- All Notes -->
+        <section class="notes-section">
+            <div class="section-heading">
+                <h3 id="notesSectionTitle">All Notes</h3>
+            </div>
+            <div class="notes-grid" id="notesContainer"></div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">
+                    <i class="fa-regular fa-note-sticky"></i>
+                </div>
+
+                <h2>No notes found</h2>
+                <p>Create your first note and start organizing your thoughts.</p>
+
+                <button class="add-note-btn" id="emptyAddBtn">
+                    <i class="fa-solid fa-plus"></i>
+                    Create Your First Note
+                </button>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- Modal Overlay -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="note-modal">
+        <div class="modal-header">
+            <div>
+                <h2 id="modalTitle">Create New Note</h2>
+                <p>Write down your thoughts and ideas.</p>
+            </div>
+
+            <button class="modal-close" id="closeModal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        
+        <form id="noteForm">
+            <input type="hidden" id="noteId">
+            <div class="form-group">
+                <label for="noteTitle">Note Title</label>
+                <input type="text" id="noteTitle"
+                       placeholder="Enter note title..." maxlength="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="noteContent">Description</label>
+                <textarea id="noteContent"
+                          placeholder="Start writing your note..."
+                          rows="7" required></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="noteCategory">Category</label>
+                    <select id="noteCategory">
+                        <option value="Personal">Personal</option>
+                        <option value="Work">Work</option>
+                        <option value="Study">Study</option>
+                        <option value="Ideas">Ideas</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="noteTag">Custom Tag</label>
+                    <input type="text" id="noteTag"
+                           placeholder="e.g. Important">
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label>Choose Note Color</label>
+                <div class="color-options">
+                    <label class="color-option">
+                        <input type="radio" name="noteColor" value="yellow" checked>
+                        <span class="color-circle yellow"></span>
+                    </label>
+
+                    <label class="color-option">
+                        <input type="radio" name="noteColor" value="blue">
+                        <span class="color-circle blue"></span>
+                    </label>
+
+                    <label class="color-option">
+                        <input type="radio" name="noteColor" value="green">
+                        <span class="color-circle green"></span>
+                    </label>
+
+                    <label class="color-option">
+                        <input type="radio" name="noteColor" value="pink">
+                        <span class="color-circle pink"></span>
+                    </label>
+
+                    <label class="color-option">
+                        <input type="radio" name="noteColor" value="purple">
+                        <span class="color-circle purple"></span>
+                    </label>
+
+                    <label class="color-option">
+                        <input type="radio" name="noteColor" value="orange">
+                        <span class="color-circle orange"></span>
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="cancel-btn" id="cancelBtn">
+                    Cancel
+                </button>
+
+                <button type="submit" class="save-btn">
+                    <i class="fa-solid fa-check"></i>
+                    Save Note
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toastMessage">Note saved successfully!</span>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
