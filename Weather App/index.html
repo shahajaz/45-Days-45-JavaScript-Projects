@@ -3,28 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css">
-    <title>Weather App - Js Project | TechGuy 360</title>
+    <meta name="description" content="A modern weather application with real-time weather updates and forecasts.">
+    <title>Weather App - JS Project | TechGuy 360</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="weather-container">
-        <img src="./img/drizzle.png" alt="Weather Icon">
-        <h1>Weather</h1>
-        <h2>ForCasts</h2>
-        <button>Start</button>
-    </div>
+    <main class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-cloud-sun"></i>
+                <span>Weatherly</span>
+            </a>
 
-    <div class="weather-wrapper">
-        <div class="searchBox">
-            <input type="text" id="inputfield" placeholder="Enter City Name">
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <div class="header-actions">
+                <button class="icon-btn" id="unitToggle" type="button" title="Toggle temperature unit">
+                    °C
+                </button>
+
+                <button class="icon-btn" id="refreshBtn" type="button" title="Refresh weather">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <h1>Weather Forecast</h1>
+            <p class="subtitle">
+                Discover the weather conditions around you.
+            </p>
+            <form id="searchForm" class="search-box">
+                <i class="fa-solid fa-location-dot search-icon"></i>
+                <input type="text" id="cityInput" placeholder="Enter your City..." autocomplete="off" required>
+                <button type="submit" id="searchBtn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>Search</span>
+                </button>
+            </form>
+
+            <button class="location-btn" id="locationBtn" type="button">
+                <i class="fa-solid fa-crosshairs"></i>
+                Use My Current Location
+            </button>
+        </section>
+
+
+        <!-- Status Message -->
+        <div id="statusMessage" class="status-message" role="status" aria-live="polite"></div>
+
+        <!-- Loading -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Fetching weather information...</p>
         </div>
-    </div>
 
-    <div class="weatherBox">
+        <!-- Weather Content -->
+        <div id="weatherContent" class="weather-content hidden">
 
-    </div>
-    <script src="./script.js"></script>
+            <!-- Current Weather -->
+            <section class="current-weather card">
+                <div class="weather-top">
+                    <div>
+                        <p class="weather-label">
+                            CURRENT WEATHER
+                        </p>
+
+                        <h2 id="cityName">
+                            Mumbai, India
+                        </h2>
+
+                        <p class="local-date" id="localDate">
+                            Loading date...
+                        </p>
+                    </div>
+
+                    <button class="favorite-btn" id="favoriteBtn"
+                        type="button" title="Add to favorites">
+                        <i class="fa-regular fa-star"></i>
+                    </button>
+                </div>
+
+                <div class="current-weather-main">
+                    <div class="temperature-section">
+                        <div class="weather-icon" id="weatherIcon">
+                            <i class="fa-solid fa-cloud-sun"></i>
+                        </div>
+                        <div>
+                            <h3 class="temperature" id="temperature">
+                                --°
+                            </h3>
+                            <p id="weatherDescription">
+                                Loading...
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feels-like">
+                        <p>Feels Like</p>
+                        <h3 id="feelsLike">
+                            --°
+                        </h3>
+                    </div>
+                </div>
+
+                <!-- Weather Details -->
+                <div class="weather-details">
+                    <div class="detail-item">
+                        <i class="fa-solid fa-droplet"></i>
+                        <div>
+                            <p>Humidity</p>
+                            <h3 id="humidity">--%</h3>
+                        </div>
+                    </div>
+
+
+                    <div class="detail-item">
+                        <i class="fa-solid fa-wind"></i>
+                        <div>
+                            <p>Wind Speed</p>
+                            <h3 id="windSpeed">-- km/h</h3>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <i class="fa-solid fa-gauge-high"></i>
+                        <div>
+                            <p>Pressure</p>
+                            <h3 id="pressure">-- hPa</h3>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <i class="fa-solid fa-compass"></i>
+                        <div>
+                            <p>Wind Direction</p>
+                            <h3 id="windDirection">--</h3>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <i class="fa-solid fa-sun"></i>
+                        <div>
+                            <p>Sunrise</p>
+                            <h3 id="sunrise">--:--</h3>
+                        </div>
+                    </div>
+
+
+                    <div class="detail-item">
+                        <i class="fa-solid fa-moon"></i>
+                        <div>
+                            <p>Sunset</p>
+                            <h3 id="sunset">--:--</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Five Day Forecast -->
+            <section class="forecast-section card">
+                <!-- Forecast Heading -->
+                <div class="section-heading">
+                    <div>
+                        <h2>5-Day Forecast</h2>
+                        <p>Weather predictions for upcoming days</p>
+                    </div>
+
+                    <!-- FIXED CALENDAR BUTTON -->
+                    <button class="icon-btn calendar-btn" id="calendarBtn" type="button"
+                        title="View forecast calendar" aria-label="View forecast calendar" aria-expanded="false" aria-controls="calendarPopup">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </button>
+                </div>
+
+                <!-- Forecast cards generated using JavaScript -->
+                <div class="forecast-list" id="forecastList"></div>
+
+                <!-- CALENDAR POPUP -->
+                <div class="calendar-popup hidden" id="calendarPopup">
+                    <div class="calendar-popup-header">
+                        <div>
+                            <h3>Forecast Calendar</h3>
+                            <p>Upcoming weather conditions</p>
+                        </div>
+
+                        <!-- Close Calendar Button -->
+                        <button
+                            id="closeCalendarBtn"
+                            class="icon-btn"
+                            type="button"
+                            title="Close calendar"
+                            aria-label="Close calendar"
+                        >
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <!-- Calendar Dates Generated by JavaScript -->
+                    <div
+                        id="calendarDates"
+                        class="calendar-dates"
+                    >
+                    </div>
+                </div>
+            </section>
+
+            <!-- Favorites -->
+            <section class="secondary-section card">
+                <div class="section-heading">
+                    <div>
+                        <h2>Favorite Cities</h2>
+                        <p>Your saved locations</p>
+                    </div>
+                    <i class="fa-solid fa-star heading-icon"></i>
+                </div>
+
+                <div class="city-list" id="favoritesList">
+                    <p class="empty-message">
+                        No favorite cities yet.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Recent Searches -->
+            <section class="secondary-section card">
+                <div class="section-heading">
+                    <div>
+                        <h2>Recent Searches</h2>
+                        <p>Your recently searched cities</p>
+                    </div>
+
+                    <button class="clear-btn" id="clearHistoryBtn" type="button">
+                        Clear All
+                    </button>
+                </div>
+
+                <div class="city-list" id="recentList">
+                    <p class="empty-message">
+                        No recent searches.
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Initial Empty State -->
+        <div class="welcome-message" id="welcomeMessage">
+            <i class="fa-solid fa-cloud-sun"></i>
+            <h2>Check the Weather</h2>
+            <p>
+                Search for a city to see its current weather
+                and five-day forecast.
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Design & Built by <i class="fa-solid fa-heart"></i> TechGuy 360</p>
+
+            <!-- <p>
+                Weather data provided by Open-Meteo
+            </p> -->
+
+            <p>
+                © 2026 TechGuy 360. All rights reserved.
+            </p>
+        </footer>
+    </main>
+
+    <script src="script.js" defer></script>
 </body>
 </html>
