@@ -3,11 +3,363 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz App - Js Project | TechGuy 360</title>
+    <meta name="description" content="Quizify - Interactive Quiz Application">
+    <title>Quizify App - Js Project | TechGuy 360</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    <script src="script.js"></script>
+    <div class="app-shell">
+        <!-- Header -->
+        <header class="topbar">
+            <a href="#" class="brand">
+                <span class="brand-mark">
+                    <i class="fa-solid fa-brain"></i>
+                </span>
+                <span>quiz<span class="brand-accent">ify</span></span>
+            </a>
+
+            <div class="topbar-right">
+                <span class="saved-score">
+                    <i class="fa-solid fa-trophy"></i>
+                    Best: <strong id="best-score">0%</strong>
+                </span>
+
+                <button class="icon-button" id="sound-toggle" type="button">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+            </div>
+        </header>
+        <main>
+
+            <!-- Setup Screen -->
+            <section class="screen active" id="setup-screen">
+                <div class="hero">
+                    <div class="eyebrow">
+                        <span class="eyebrow-dot"></span>
+                        LEARN SOMETHING NEW TODAY
+                    </div>
+                    <h1>
+                        Challenge your<br>
+                        <span>knowledge.</span>
+                    </h1>
+                    <p class="hero-copy">
+                        Pick a topic, focus your mind, and see how much you really know.
+                    </p>
+                </div>
+
+                <div class="setup-card">
+                    <div class="section-heading">
+                        <div>
+                            <p class="section-kicker">YOUR QUIZ</p>
+                            <h2>Choose your challenge</h2>
+                        </div>
+
+                        <span class="step-count">01 <span>/ 02</span></span>
+                    </div>
+                    <div class="field-label">SELECT A CATEGORY</div>
+                    <div class="category-grid" id="category-grid">
+                        <button class="category-card selected" data-category="JavaScript" type="button">
+                            <span class="category-icon js-icon">
+                                <i class="fa-brands fa-js"></i>
+                            </span>
+                            <span class="category-name">JavaScript</span>
+                            <span class="category-meta">Core concepts</span>
+                            <i class="fa-solid fa-circle-check category-check"></i>
+                        </button>
+
+                        <button class="category-card" data-category="HTML & CSS" type="button">
+                            <span class="category-icon html-icon">
+                                <i class="fa-brands fa-html5"></i>
+                            </span>
+                            <span class="category-name">HTML & CSS</span>
+                            <span class="category-meta">Web foundations</span>
+                            <i class="fa-solid fa-circle-check category-check"></i>
+                        </button>
+
+                        <button class="category-card" data-category="Computer Science" type="button">
+                            <span class="category-icon cs-icon">
+                                <i class="fa-solid fa-microchip"></i>
+                            </span>
+                            <span class="category-name">Computer Science</span>
+                            <span class="category-meta">Tech fundamentals</span>
+                            <i class="fa-solid fa-circle-check category-check"></i>
+                        </button>
+
+                        <button class="category-card" data-category="General Knowledge" type="button">
+                            <span class="category-icon gk-icon">
+                                <i class="fa-solid fa-globe"></i>
+                            </span>
+                            <span class="category-name">General Knowledge</span>
+                            <span class="category-meta">Around the world</span>
+                            <i class="fa-solid fa-circle-check category-check"></i>
+                        </button>
+
+                    </div>
+
+                    <div class="settings-row">
+                        <div class="setting-block">
+                            <label class="field-label" for="question-count">
+                                NUMBER OF QUESTIONS
+                            </label>
+
+                            <div class="select-wrap">
+                                <i class="fa-solid fa-list-ol"></i>
+                                <select id="question-count">
+                                    <option value="5">5 questions</option>
+                                    <option value="8">8 questions</option>
+                                    <option value="10" selected>10 questions</option>
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down select-chevron"></i>
+                            </div>
+                        </div>
+
+                        <div class="setting-block">
+                            <label class="field-label" for="time-limit">TIME PER QUESTION</label>
+                            <div class="select-wrap">
+                                <i class="fa-regular fa-clock"></i>
+                                <select id="time-limit">
+                                    <option value="15">15 seconds</option>
+                                    <option value="20" selected>20 seconds</option>
+                                    <option value="30">30 seconds</option>
+                                    <option value="0">No timer</option>
+                                </select>
+                                <i class="fa-solid fa-chevron-down select-chevron"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="primary-button full-button" id="start-quiz" type="button">
+                        Start quiz
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                    <p class="privacy-note">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        Your progress is saved locally on this device.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Quiz Screen -->
+            <section class="screen" id="quiz-screen">
+                <div class="quiz-topline">
+                    <button class="text-button" id="exit-quiz" type="button">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Exit quiz
+                    </button>
+
+                    <div class="quiz-category-label" id="quiz-category-label">
+                        JAVASCRIPT
+                    </div>
+
+                    <div class="question-counter">
+                        <strong id="current-number">01</strong>
+                        <span> / </span>
+                        <span id="total-number">10</span>
+                    </div>
+
+                </div>
+
+                <div class="quiz-progress">
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="progress-caption">
+                        <span>YOUR PROGRESS</span>
+                        <span id="progress-percent">10%</span>
+                    </div>
+
+                </div>
+
+                <div class="quiz-layout">
+                    <div class="question-panel">
+                        <div class="question-meta">
+                            <span class="question-tag" id="question-tag">QUESTION 01</span>
+                            <span class="difficulty" id="difficulty-label">● EASY</span>
+                        </div>
+
+                        <h1 id="question-text">Loading question...</h1>
+                        <p class="question-hint">
+                            <i class="fa-regular fa-lightbulb"></i>
+                            Select one answer from the options below.
+                        </p>
+
+                        <div class="answer-list" id="answer-list"></div>
+                        <div class="answer-feedback" id="answer-feedback" aria-live="polite"></div>
+                        <div class="question-actions"> 
+                            <button class="secondary-button" id="previous-question" type="button">
+                                <i class="fa-solid fa-arrow-left"></i>
+                                Previous
+                            </button>
+
+                            <button class="primary-button next-button" id="next-question" type="button" disabled>
+                                Next question
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Sidebar -->
+                    <aside class="quiz-sidebar">
+                        <div class="timer-card" id="timer-card"> 
+                            <div class="timer-top">
+                                <span>TIME LEFT</span>
+                                <i class="fa-regular fa-clock"></i>
+                            </div>
+
+                            <div class="timer-value" id="timer-value">
+                                20<span>s</span>
+                            </div>
+
+                            <div class="timer-track">
+                                <div class="timer-fill" id="timer-fill"></div>
+                            </div>
+
+                            <p id="timer-caption">Keep your focus!</p>
+
+                        </div>
+
+                        <div class="score-card">
+                            <div class="sidebar-title">
+                                YOUR SCORE
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+
+                            <div class="live-score" id="live-score">
+                                0 <span>pts</span>
+                            </div>
+                            <p>Correct answers so far</p>
+                        </div>
+
+                        <div class="question-map-card">
+                            <div class="sidebar-title">
+                                QUESTION MAP
+                                <span id="answered-count">0/10</span>
+                            </div>
+
+                            <div class="question-map" id="question-map"></div>
+                            <div class="map-legend">
+                                <span>
+                                    <i class="legend-dot answered-dot"></i>
+                                    Answered
+                                </span>
+
+                                <span>
+                                    <i class="legend-dot current-dot"></i>
+                                    Current
+                                </span>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+            <!-- Result Screen -->
+            <section class="screen" id="result-screen">
+                <div class="result-wrap">
+                    <div class="result-icon" id="result-icon">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <p class="section-kicker">QUIZ COMPLETED</p>
+                    <h1 id="result-heading">Great effort!</h1>
+                    <p class="result-subtitle" id="result-subtitle">
+                        Here is how you performed.
+                    </p>
+
+                    <div class="result-score-card">
+                        <span class="result-score-label">YOUR FINAL SCORE</span>
+                        <div class="result-score" id="final-score">
+                            0<span>%</span>
+                        </div>
+
+                        <div class="result-score-track">
+                            <div id="result-score-fill"></div>
+                        </div>
+
+                        <p id="score-message">
+                            Keep learning and try again.
+                        </p>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card correct-stat">
+                            <span class="stat-icon">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <strong id="correct-count">0</strong>
+                            <span>Correct</span>
+                        </div>
+
+                        <div class="stat-card wrong-stat">
+                            <span class="stat-icon">
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
+                            <strong id="incorrect-count">0</strong>
+                            <span>Incorrect</span>
+                        </div>
+
+                        <div class="stat-card skipped-stat">
+                            <span class="stat-icon">
+                                <i class="fa-solid fa-minus"></i>
+                            </span>
+                            <strong id="unanswered-count">0</strong>
+                            <span>Unanswered</span>
+                        </div>
+                    </div>
+
+                    <div class="result-actions">
+                        <button class="secondary-button" id="review-answers" type="button">
+                            <i class="fa-regular fa-clipboard"></i>
+                            Review answers
+                        </button>
+
+                        <button class="primary-button" id="restart-quiz" type="button">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            Try again
+                        </button>
+                    </div>
+
+                    <button class="text-button back-home-button" id="back-home" type="button">
+                        <i class="fa-solid fa-house"></i>
+                        Back to categories
+                    </button>
+                </div>
+            </section>
+
+            <!-- Review Screen -->
+            <section class="screen" id="review-screen">
+                <div class="review-header">
+                    <button class="text-button" id="back-results" type="button">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Back to results
+                    </button>
+                    <p class="section-kicker">LEARN FROM YOUR ANSWERS</p>
+                    <h1>Answer review</h1>
+                    <p>See the correct answers and explanations for every question.</p>
+                </div>
+
+                <div class="review-list" id="review-list"></div>
+                <button class="primary-button review-home-button" id="review-home" type="button">
+                    Back to categories
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </section>
+        </main>
+    </div>
+    <!-- Notification -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="script.js" defer></script>
 </body>
 </html>
