@@ -3,9 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate strong, secure and customizable random passwords instantly.">
     <title>Random Password Generator - Js Project | TechGuy 360</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <main class="container">
+        <div class="app-card">
+
+            <!-- Header -->
+            <header class="app-header">
+                <div class="logo">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h1>Password Generator</h1>
+                <p>Create strong and secure passwords in seconds.</p>
+            </header>
+
+            <!-- Password Output -->
+            <section class="password-section">
+                <label for="passwordOutput">Generated Password</label>
+                <div class="password-box">
+                    <input type="text" id="passwordOutput" placeholder="Your password will appear here" readonly autocomplete="off" spellcheck="false">
+                    <button type="button" class="icon-btn" id="copyBtn" aria-label="Copy password" title="Copy password">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+
+                <div class="strength-container">
+                    <div class="strength-info">
+                        <span>Password Strength</span>
+                        <span id="strengthText">Not generated</span>
+                    </div>
+
+                    <div class="strength-bars" id="strengthBars">
+                        <span class="strength-bar"></span>
+                        <span class="strength-bar"></span>
+                        <span class="strength-bar"></span>
+                        <span class="strength-bar"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Password Length -->
+            <section class="options-section">
+                <div class="section-heading">
+                    <h2>Password Settings</h2>
+                    <span class="length-value" id="lengthValue">16</span>
+                </div>
+
+                <div class="length-container">
+                    <label for="passwordLength">Password Length</label>
+                    <input type="range" id="passwordLength" min="4" max="64" value="16">
+                    <div class="range-labels">
+                        <span>4 Characters</span>
+                        <span>64 Characters</span>
+                    </div>
+                </div>
+
+                <!-- Character Options -->
+                <div class="character-options">
+                    <label class="option-item">
+                        <span class="option-icon uppercase-icon">A</span>
+                        <span class="option-details">
+                            <strong>Uppercase Letters</strong>
+                            <small>A–Z</small>
+                        </span>
+                        <input type="checkbox" id="uppercase" checked>
+                        <span class="custom-checkbox"></span>
+                    </label>
+
+                    <label class="option-item">
+                        <span class="option-icon lowercase-icon">a</span>
+                        <span class="option-details">
+                            <strong>Lowercase Letters</strong>
+                            <small>a–z</small>
+                        </span>
+                        <input type="checkbox" id="lowercase" checked>
+                        <span class="custom-checkbox"></span>
+                    </label>
+
+                    <label class="option-item">
+                        <span class="option-icon number-icon">123</span>
+                        <span class="option-details">
+                            <strong>Numbers</strong>
+                            <small>0–9</small>
+                        </span>
+                        <input type="checkbox" id="numbers" checked>
+                        <span class="custom-checkbox"></span>
+                    </label>
+
+                    <label class="option-item">
+                        <span class="option-icon symbol-icon">@</span>
+                        <span class="option-details">
+                            <strong>Symbols</strong>
+                            <small>!@#$%^&*</small>
+                        </span>
+                        <input type="checkbox" id="symbols" checked>
+                        <span class="custom-checkbox"></span>
+                    </label>
+                </div>
+
+                <!-- Exclude Ambiguous Characters -->
+                <label class="exclude-option">
+                    <input type="checkbox" id="excludeAmbiguous">
+                    <span class="custom-checkbox"></span>
+                    <span>
+                        <strong>Exclude ambiguous characters</strong>
+                        <small>Avoid characters like O, 0, l, I, 1</small>
+                    </span>
+                </label>
+            </section>
+
+            <!-- Generate Button -->
+            <button type="button" class="generate-btn" id="generateBtn">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                Generate Password
+            </button>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <i class="fa-solid fa-lock"></i>
+                Your passwords are generated locally in your browser.
+            </footer>
+
+            <!-- Toast Notification -->
+            <div class="toast" id="toast" role="status" aria-live="polite">
+                <i class="fa-solid fa-circle-check"></i>
+                <span id="toastMessage">Password copied!</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
